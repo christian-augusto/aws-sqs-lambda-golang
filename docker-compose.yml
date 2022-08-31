@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  localstack:
+    image: localstack/localstack
+    container_name: localstack
+    ports:
+      - "4566:4566"
+      - "4571:4571"
+    environment:
+      - DATA_DIR=/tmp/localstack/data
+      - LOCALSTACK_HOSTNAME=localhost
+      - DEBUG=1
+    volumes:
+      - .:/app
+      - /var/tmp/localstack:/tmp/localstack
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - main
+    depends_on:
+      - redis
+  redis:
+    image: redis:3.0.7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - main
+
+networks:
+  main:
+    driver: bridge
