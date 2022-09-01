@@ -25,8 +25,8 @@ bash /app/scripts/send-message.sh
 verificar registro redis (terminar 3):
 ```sh 
 docker container exec -it redis sh
+redis-cli
 ```
-
 
 parar projeto:
 ```sh
